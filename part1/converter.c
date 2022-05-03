@@ -1,40 +1,36 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-int size_base = 4;
+#include <math.h>
+int size_base = 8;
 char *setWord(char *str);
 
 int main(void){
         
-    char *word = setWord("0141014201410143");
+    char *word = setWord("01110000");
     printf("palavra final: %s",word);
     free(word);
     return 0;
 }
 
 char setChar(char string[]){
-    char result;
+    char character = 0;
+    int i, num_char=0, exponent = size_base-1;
 
-    if(strcmp("0141",string) == 0){
-        result =  'a';
+    for(i=0; string[i] != '\0'; i++, exponent--){
+        if(string[i] == '1'){   num_char += (int)(pow(2.0,(double)exponent));   }
     }
-    else if(strcmp("0142",string) == 0){
-        result =  'b';
-    }
-    else if(strcmp("0143",string) == 0){
-        result =  'c';
-    }
-    return result;
+
+    return (character+num_char);
 }
 
 char *setWord(char *str){
-    int len = sizeof(str);
-    int i = 0, j=0, k=0;
-        
+    int i = 0, j=0, k=0, len = sizeof(str);
+
     if( (len%size_base) != 0){ return NULL; }
-        
-    char *temp = (char *) malloc(size_base * sizeof(char));
     int n_len = len/size_base;
+
+    char *temp = (char *) malloc(size_base * sizeof(char));
     char *natural_word = (char *)malloc(n_len * sizeof(char));
 
     while(str[i] != '\0'){
@@ -44,7 +40,7 @@ char *setWord(char *str){
         natural_word[k] = setChar(temp);
         k++;
     }
-    
+
     free(temp);
     return natural_word;
 }
