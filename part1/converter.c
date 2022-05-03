@@ -29,8 +29,6 @@ char setChar(char string[]){
 
 char *setWord(char *str){
     int len = sizeof(str);
-    printf("%d:", len);
-
     int i = 0, j=0, k=0;
         
     if( (len%size_base) != 0){ return NULL; }
