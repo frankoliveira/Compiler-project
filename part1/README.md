@@ -1,0 +1,1 @@
+Implementação de um analisador léxico utilizando o gerador automático Flex para o problema de tradução de código em octal para decimal. Dado um token representado em código octal, o analisador léxico é capaz de converter o token para uma representação equivalente em código decimal, utilizando a codificação da tabela ASCII.
