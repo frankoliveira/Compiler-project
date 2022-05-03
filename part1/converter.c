@@ -28,8 +28,8 @@ char *setWord(char *str){
     int i = 0, j=0, k=0, len = sizeof(str);
 
     if( (len%size_base) != 0){ return NULL; }
+    
     int n_len = len/size_base;
-
     char *temp = (char *) malloc(size_base * sizeof(char));
     char *natural_word = (char *)malloc(n_len * sizeof(char));
 
