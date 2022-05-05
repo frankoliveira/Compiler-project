@@ -10,11 +10,12 @@ char *setWord(char *str);
 %}
 
 /*Definições Regulares*/
-/*bin ([01]{8})+*/
+bin ([01]{8})+
 
+/*setWord(yytext)*/
 %%
 
-([01]{8})+ { setWord(yytext); }
+{bin} {printf("Bin:%s | Char: %s\n", yytext, setWord(yytext)); }
 
 %%
 
@@ -24,12 +25,12 @@ int yywrap()
     return 1;
 }
 
-int  main(int argc, char *argv[ ] ){
+int main(int argc, char *argv[ ] ){
     extern FILE *yyin;
 
-    yyin=fopen("input.txt", "r");    yylex();
+    yyin=fopen("input.txt", "r");
     
-    return 0;
+    yylex();
 }
 
 char setChar(char string[]){
@@ -44,9 +45,13 @@ char setChar(char string[]){
 }
 
 char *setWord(char *str){
-    int i = 0, j=0, k=0, len = sizeof(str);
+
+    int i = 0, j=0, k=0, len = strlen(str);
+    size_base = 8;
     if( (len%size_base) != 0){ return NULL; }
+    
     int n_len = len/size_base;
+
     char *temp = (char *) malloc(size_base * sizeof(char));
     char *natural_word = (char *)malloc(n_len * sizeof(char));
 
@@ -55,10 +60,10 @@ char *setWord(char *str){
             temp[j] = str[i++];
         }
         natural_word[k] = setChar(temp);
+        natural_word[8] = '\0';
         k++;
     }
-    
-    printf("Palavra recebida:%s | palavra traduzida: %s",str, natural_word);
+
     free(temp);
     return natural_word;
 }
