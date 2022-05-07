@@ -10,13 +10,14 @@ char *setWord(char *str);
 %}
 
 /*Definições Regulares*/
+%option yylineno
 bin ([01]{8})+
 
 %%
 
 [ \n\t] ; 
 {bin} {printf("OUTPUT: %s\n", setWord(yytext)); }
-. printf("erro\n");
+. printf("Error at line %d\n", yylineno);
 
 %%
 
