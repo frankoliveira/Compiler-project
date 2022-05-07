@@ -41,6 +41,7 @@ char *setWord(char *str){
         k++;
     }
 
+    natural_word[n_len] = '\0';
     free(temp);
     return natural_word;
 }

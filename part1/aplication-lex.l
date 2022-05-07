@@ -12,10 +12,11 @@ char *setWord(char *str);
 /*Definições Regulares*/
 bin ([01]{8})+
 
-/*setWord(yytext)*/
 %%
 
-{bin} {printf("Bin:%s | Char: %s\n", yytext, setWord(yytext)); }
+[ \n\t] ; 
+{bin} {printf("OUTPUT: %s\n", setWord(yytext)); }
+. printf("erro\n");
 
 %%
 
@@ -26,6 +27,8 @@ int yywrap()
 }
 
 int main(int argc, char *argv[ ] ){
+    
+    size_base = 8;  
     extern FILE *yyin;
 
     yyin=fopen("input.txt", "r");
@@ -46,10 +49,7 @@ char setChar(char string[]){
 
 char *setWord(char *str){
 
-    int i = 0, j=0, k=0, len = strlen(str);
-    size_base = 8;
-    if( (len%size_base) != 0){ return NULL; }
-    
+    int i = 0, j=0, k=0, len = strlen(str);    
     int n_len = len/size_base;
 
     char *temp = (char *) malloc(size_base * sizeof(char));
@@ -60,10 +60,10 @@ char *setWord(char *str){
             temp[j] = str[i++];
         }
         natural_word[k] = setChar(temp);
-        natural_word[8] = '\0';
         k++;
     }
-
+    
+    natural_word[n_len] = '\0';
     free(temp);
     return natural_word;
 }
